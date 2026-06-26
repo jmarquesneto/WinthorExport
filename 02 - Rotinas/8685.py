@@ -1,9 +1,9 @@
-import pyautogui
+﻿import pyautogui
 import pyperclip
 import time
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Addons'))
 from acoes_winthor import pasta_exportacao
 
 #------------------------------------------------------------------

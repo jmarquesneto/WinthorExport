@@ -1,10 +1,10 @@
-import pyautogui
+﻿import pyautogui
 import pyperclip
 import time
 import sys
 import os
 from datetime import datetime
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Addons'))
 from acoes_winthor import pasta_exportacao
 
 #------------------------------------------------------------------
@@ -59,4 +59,5 @@ def e8770(dtInicio, dtFinal):
     pyautogui.hotkey('alt', 'f')
 
     print("\n > Finalizado rotina 8770 Loja 1")
+
 

@@ -1,10 +1,10 @@
-import pyautogui
+﻿import pyautogui
 import pyperclip
 import time
 import sys
 import os
 from datetime import datetime, timedelta
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Addons'))
 from acoes_winthor import pasta_exportacao
 
 #------------------------------------------------------------------
