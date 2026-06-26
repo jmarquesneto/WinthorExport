@@ -1,0 +1,8 @@
+pyautogui
+pyperclip
+pywin32
+pywinauto
+pyscreeze
+Pillow
+opencv-python
+pyyaml
