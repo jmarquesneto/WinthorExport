@@ -1,9 +1,6 @@
 # Configurações sensíveis — nunca subir para o repositório
 config.py
 
-# Arquivo de testes local
-TR0.py
-
 # Cache do Python
 __pycache__/
 *.py[cod]

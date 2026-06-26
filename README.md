@@ -12,7 +12,7 @@ O script acessa o WinThor automaticamente, executa as rotinas configuradas, expo
 
 - Python 3.12 (recomendado)
 - AppController (GraphOn) instalado
-- Acesso à rede compartilhada (drives H: e W:)
+- Acesso à rede compartilhada
 
 ## Instalação
 
@@ -53,11 +53,11 @@ O sistema pedirá:
 
 ```
 TR.py                  — script principal
-acoes_winthor.py       — funções de automação (clique, imagem, login)
-config.example.py      — modelo de configuração (copie para config.py)
 requirements.txt       — dependências Python
+01 - Imgs/             — imagens de referência para o PyAutoGUI
 02 - Rotinas/          — uma rotina por arquivo (g = gerar, e = exportar)
 Addons/
   TransArquivos.py     — compilar partes do 8598 e transferir arquivos
-01 - Imgs/             — imagens de referência para o PyAutoGUI
+  acoes_winthor.py     — funções de automação (clique, imagem, login)
+  config.example.py    — modelo de configuração (copie para config.py)
 ```
