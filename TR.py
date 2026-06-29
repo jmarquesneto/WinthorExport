@@ -132,4 +132,4 @@ if __name__ == "__main__":
 
     compilar8598(dtInicio)
 
-    transferBdRotinas(dtInicio)
+    transferBdRotinas(dtInicio, dtFinal)

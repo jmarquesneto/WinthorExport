@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+import time
 from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -52,7 +53,7 @@ def compilar8598(dtInicio):
 #------------------------------------------------------------------
 #TRANSFERIR ARQUIVOS PARA BD ROTINAS
 #------------------------------------------------------------------
-def transferBdRotinas(dtInicio):
+def transferBdRotinas(dtInicio, dtFinal):
     print('\n > Iniciando transferência dos arquivos...')
 
     hoje = datetime.today()
@@ -67,6 +68,10 @@ def transferBdRotinas(dtInicio):
     dtFmt     = data.strftime('%Y.%m')
     ano_ref   = data.strftime('%Y')
     mes_ref   = f"{data.month:02d} - {MESES_PT[data.month].upper()}"
+
+    dataFinal    = datetime.strptime(dtFinal, '%d/%m/%Y')
+    dtFmtFinal   = dataFinal.strftime('%Y.%m.%d')
+    mes_ref_8685 = f"{dataFinal.month:02d} - {MESES_PT[dataFinal.month].upper()}"
 
     BD = CAMINHO_BD
 
@@ -83,8 +88,8 @@ def transferBdRotinas(dtInicio):
         (f'8536 - {dtFmt}.csv',        os.path.join(BD, '8536', ano_ref)),
         (f'8536 02 - {dtFmt}.csv',     os.path.join(BD, '8536', ano_ref)),
         (f'8598 - {dtFmt}.csv',        os.path.join(BD, '8598', ano_ref)),
-        # Com ano e mês
-        (f'8685 - {dtFmt}.csv',        os.path.join(BD, '8685', ano_ref, mes_ref)),
+        # Com ano e mês (usa dtFinal no formato AAAA.MM.DD)
+        (f'8685 - {dtFmtFinal}.csv',   os.path.join(BD, '8685', ano_ref, mes_ref_8685)),
     ]
 
     nao_encontrados = []
