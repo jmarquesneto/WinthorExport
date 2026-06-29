@@ -30,7 +30,7 @@ def g8536_1(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8536_1(dtInicio, dtFinal):
-    time.sleep(3900)
+    time.sleep(3600)
     print("\n > Exportando rotina 8536 Loja 1")
     caminho = pasta_exportacao(para_winthor=True)
 

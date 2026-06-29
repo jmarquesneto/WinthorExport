@@ -118,14 +118,11 @@ if __name__ == "__main__":
         rotina_8598.e8598(ini, fim, parte=parte)
     
     carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
-    time.sleep(5)
-    print("\n > Clicando no botão Conectar")
-    if not clicar_imagem('LogoTotvs2.PNG, duplo=True'):
-        print("Botão não encontrado!")
-    carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
-
-    carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
     carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
+
+    carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
+    carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
+
 
     #FINAL CONTABILIZAR TEMPO
     stop = datetime.now()
@@ -134,7 +131,5 @@ if __name__ == "__main__":
     print(f" > Tempo total de execução: {tempo_total}")
 
     compilar8598(dtInicio)
-
-    transferBdRotinas()
 
     transferBdRotinas(dtInicio)
