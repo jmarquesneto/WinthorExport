@@ -31,6 +31,9 @@ from TransArquivos import (
     transferBdRotinas,
 )
 
+from Relatorios.vdaTLMK import atualizar_vda_tlmk
+from Relatorios.bdEstoque import atualizar_bd_estoque
+
 def carregar_rotina(nome):
     return importlib.import_module(nome)
 
@@ -61,75 +64,79 @@ if __name__ == "__main__":
     #INPUT DOS DADOS
     dtInicio, dtFinal, dtEstInicio = gerarRelatorio()
 
-    #CREDENCIAIS
-    usuario = input("\n > Digite seu usuário do Winthor: ").upper()
-    while True:
-        senha = getpass(" > Digite sua senha do Winthor: ")
-        senha_confirm = getpass(" > Confirme sua senha: ")
-        if senha == senha_confirm:
-            print("Senha confirmada.")
-            break
-        print("As senhas não coincidem. Tente novamente.")
+    # #CREDENCIAIS
+    # usuario = input("\n > Digite seu usuário do Winthor: ").upper()
+    # while True:
+    #     senha = getpass(" > Digite sua senha do Winthor: ")
+    #     senha_confirm = getpass(" > Confirme sua senha: ")
+    #     if senha == senha_confirm:
+    #         print("Senha confirmada.")
+    #         break
+    #     print("As senhas não coincidem. Tente novamente.")
 
-    #AGENDAR RELATORIO
-    agendarRelatorio()
+    # #AGENDAR RELATORIO
+    # agendarRelatorio()
 
-    #INICIO CONTABILIZAR TEMPO
-    start = datetime.now()
-    print(f"\n > Início da execução: {start.strftime('%d/%m/%Y %H:%M:%S')}")
+    # #INICIO CONTABILIZAR TEMPO
+    # start = datetime.now()
+    # print(f"\n > Início da execução: {start.strftime('%d/%m/%Y %H:%M:%S')}")
 
-    #ABRIR WINTHOR
-    time.sleep(2)
-    abrir_appcontroller(usuario, senha)
+    # #ABRIR WINTHOR
+    # time.sleep(2)
+    # abrir_appcontroller(usuario, senha)
 
-    #GERAR E EXPORTAR ROTINAS
-    carregar_rotina('8588').g8588(dtInicio, dtFinal)
-    carregar_rotina('8588').e8588(dtInicio)
+    # #GERAR E EXPORTAR ROTINAS
+    # carregar_rotina('8588').g8588(dtInicio, dtFinal)
+    # carregar_rotina('8588').e8588(dtInicio)
 
-    carregar_rotina('8524').g8524(dtInicio, dtFinal)
-    carregar_rotina('8524').e8524(dtInicio, dtFinal)
+    # carregar_rotina('8524').g8524(dtInicio, dtFinal)
+    # carregar_rotina('8524').e8524(dtInicio, dtFinal)
 
-    carregar_rotina('8680').g8680(dtInicio, dtFinal)
-    carregar_rotina('8680').e8680(dtInicio, dtFinal)
+    # carregar_rotina('8680').g8680(dtInicio, dtFinal)
+    # carregar_rotina('8680').e8680(dtInicio, dtFinal)
 
-    carregar_rotina('8688').g8688(dtInicio, dtFinal)
-    carregar_rotina('8688').e8688(dtInicio, dtFinal)
+    # carregar_rotina('8688').g8688(dtInicio, dtFinal)
+    # carregar_rotina('8688').e8688(dtInicio, dtFinal)
 
-    carregar_rotina('8685').g8685(dtInicio, dtFinal, dtEstInicio)
-    carregar_rotina('8685').e8685(dtInicio, dtFinal, dtEstInicio)
+    # carregar_rotina('8685').g8685(dtInicio, dtFinal, dtEstInicio)
+    # carregar_rotina('8685').e8685(dtInicio, dtFinal, dtEstInicio)
 
-    carregar_rotina('8770').g8770(dtInicio, dtFinal)
-    carregar_rotina('8770').e8770(dtInicio, dtFinal)
+    # carregar_rotina('8770').g8770(dtInicio, dtFinal)
+    # carregar_rotina('8770').e8770(dtInicio, dtFinal)
 
-    carregar_rotina('8796').g8796(dtInicio, dtFinal)
-    carregar_rotina('8796').e8796(dtInicio, dtFinal)
+    # carregar_rotina('8796').g8796(dtInicio, dtFinal)
+    # carregar_rotina('8796').e8796(dtInicio, dtFinal)
 
-    carregar_rotina('8551_1').g8551_1(dtInicio, dtFinal)
-    carregar_rotina('8551_1').e8551_1(dtInicio, dtFinal)
+    # carregar_rotina('8551_1').g8551_1(dtInicio, dtFinal)
+    # carregar_rotina('8551_1').e8551_1(dtInicio, dtFinal)
 
-    carregar_rotina('8551_4').g8551_4(dtInicio, dtFinal)
-    carregar_rotina('8551_4').e8551_4(dtInicio, dtFinal)
+    # carregar_rotina('8551_4').g8551_4(dtInicio, dtFinal)
+    # carregar_rotina('8551_4').e8551_4(dtInicio, dtFinal)
 
-    rotina_8598 = carregar_rotina('8598')
-    partes_8598 = rotina_8598.particionar_datas(dtInicio, dtFinal)
-    for i, (ini, fim) in enumerate(partes_8598, 1):
-        parte = None if i == 1 else i
-        rotina_8598.g8598(ini, fim)
-        rotina_8598.e8598(ini, fim, parte=parte)
+    # rotina_8598 = carregar_rotina('8598')
+    # partes_8598 = rotina_8598.particionar_datas(dtInicio, dtFinal)
+    # for i, (ini, fim) in enumerate(partes_8598, 1):
+    #     parte = None if i == 1 else i
+    #     rotina_8598.g8598(ini, fim)
+    #     rotina_8598.e8598(ini, fim, parte=parte)
     
-    carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
-    carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
+    # carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
+    # carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
 
-    carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
-    carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
+    # carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
+    # carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
 
 
-    #FINAL CONTABILIZAR TEMPO
-    stop = datetime.now()
-    print(f"\n > Término da execução: {stop.strftime('%d/%m/%Y %H:%M:%S')}")
-    tempo_total = stop - start
-    print(f" > Tempo total de execução: {tempo_total}")
+    # #FINAL CONTABILIZAR TEMPO
+    # stop = datetime.now()
+    # print(f"\n > Término da execução: {stop.strftime('%d/%m/%Y %H:%M:%S')}")
+    # tempo_total = stop - start
+    # print(f" > Tempo total de execução: {tempo_total}")
 
-    compilar8598(dtInicio)
+    # compilar8598(dtInicio)
 
-    transferBdRotinas(dtInicio, dtFinal)
+    # transferBdRotinas(dtInicio, dtFinal)
+
+    # atualizar_vda_tlmk(dtInicio)
+
+    atualizar_bd_estoque(dtInicio)
