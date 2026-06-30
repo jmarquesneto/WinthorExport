@@ -23,7 +23,7 @@ def atualizar_bd_venda(dtInicio):
     ]
 
     if not os.path.exists(caminho):
-        print(f" > Arquivo não encontrado: {nome_arquivo}")
+        print(f"\n > Arquivo não encontrado: {nome_arquivo}")
         return False
 
     print(f"\n > Abrindo: {nome_arquivo}")

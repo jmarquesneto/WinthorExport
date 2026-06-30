@@ -39,8 +39,9 @@ def g8688(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8688(dtInicio, dtFinal):
-    time.sleep(150)
-    print("\n > Exportando rotina 8688 Loja 1 & 4")
+    print("     - Aguardando 3min para exportar 8688 Loja 1 & 4")
+    time.sleep(180)
+    print("     - Exportando rotina 8688 Loja 1 & 4")
     caminho = pasta_exportacao(para_winthor=True)
     
     pyautogui.keyDown('alt')
@@ -62,4 +63,4 @@ def e8688(dtInicio, dtFinal):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
     time.sleep(20)
-    print("\n > Finalizado rotina 8688")
+    print("     - Finalizado rotina 8688 Loja 1 & 4")

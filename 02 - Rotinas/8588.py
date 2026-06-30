@@ -11,7 +11,7 @@ from acoes_winthor import pasta_exportacao
 #------------------------------------------------------------------
 
 def g8588(dtInicio, dtFinal):
-    print("\n > Iniciando rotina 8588")
+    print("\n > Iniciando rotina 8588 Loja 1 & 4")
     time.sleep(5)
     pyautogui.write('8588')
     pyautogui.press('enter')
@@ -30,17 +30,18 @@ def g8588(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8588(dtInicio):
+    print("     - Aguardando 30seg para exportar 8588 Loja 1 & 4")
     time.sleep(30)
-    print("\n > Exportando rotina 8588")
+    print("\n     - Exportando rotina 8588 Loja 1 & 4")
     caminho = pasta_exportacao(para_winthor=True)
     
-    pyautogui.keyDown('alt')   # Pressiona e segura ALT
-    time.sleep(0.2)            # Pequeno intervalo, opcional
-    pyautogui.press('i')       # Pressiona a tecla I
-    time.sleep(0.2)            # Pequeno intervalo entre as teclas
-    pyautogui.press('a')       # Pressiona a tecla A
+    pyautogui.keyDown('alt')
     time.sleep(0.2)
-    pyautogui.keyUp('alt')     # Solta a tecla ALT
+    pyautogui.press('i')
+    time.sleep(0.2)
+    pyautogui.press('a')
+    time.sleep(0.2)
+    pyautogui.keyUp('alt')
     time.sleep(10)
     pyperclip.copy(caminho)
     pyautogui.hotkey('ctrl', 'v')
@@ -56,4 +57,4 @@ def e8588(dtInicio):
     pyautogui.hotkey('alt', 'f')
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
-    print("\n > Finalizado rotina 8588")
+    print("\n     - Finalizado rotina 8588 Loja 1 & 4")

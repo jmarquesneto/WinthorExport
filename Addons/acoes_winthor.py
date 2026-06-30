@@ -88,28 +88,28 @@ def abrir_appcontroller(usuario, senha):
     ])
 
     time.sleep(5)
-    print("\n > Clicando no botão Conectar")
+    print("    - Clicando no botão Conectar")
     if not clicar_imagem('WinConectar.PNG'):
-        print("Botão não encontrado!")
+        print("      - Botão não encontrado!")
 
     time.sleep(5)
-    print("\n > Redefinindo botão do Winthor")
+    print("    - Redefinindo botão do Winthor")
     if not clicar_imagem('LogoTotvs.PNG', duplo=True):
-        print("Botão não encontrado!")
+        print("      - Botão não encontrado!")
 
     time.sleep(5)
-    print("\n > Clicando no botão Winthor")
+    print("    - Clicando no botão Winthor")
     if not clicar_imagem('LogoWinthor.PNG', duplo=True):
-        print("Botão não encontrado!")
+        print("      - Botão não encontrado!")
 
     time.sleep(10)
-    print("\n > Realizando login no Winthor")
+    print("    - Realizando login no Winthor")
     pyautogui.press('tab', presses=4)
     pyautogui.press('delete')
     pyautogui.write(usuario)
     pyautogui.press('tab')
     pyautogui.write(senha)
     if not clicar_imagem('Entrar.PNG'):
-        print("Botão não encontrado!")
+        print("      - Botão não encontrado!")
 
     time.sleep(30)

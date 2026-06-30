@@ -43,12 +43,12 @@ def compilar8598(dtInicio):
             with open(caminho_parte, 'r', encoding='cp1252', newline='') as f:
                 linhas_parte = f.readlines()[1:]  # pula o cabeçalho
             linhas_principal.extend(linhas_parte)
-            print(f"    > PT{pt} adicionada ({len(linhas_parte)} linhas)")
+            print(f"    - PT{pt} adicionada ({len(linhas_parte)} linhas)")
 
     with open(caminho_principal, 'w', encoding='cp1252', newline='') as f:
         f.writelines(linhas_principal)
 
-    print(f"    > Compilação concluída: {nome_principal}")
+    print(f"    - Compilação concluída: {nome_principal}")
 
 #------------------------------------------------------------------
 #TRANSFERIR ARQUIVOS PARA BD ROTINAS
@@ -99,14 +99,14 @@ def transferBdRotinas(dtInicio, dtFinal):
         if os.path.exists(origem):
             os.makedirs(destino, exist_ok=True)
             shutil.copy2(origem, os.path.join(destino, nome))
-            print(f"    > OK: {nome}")
+            print(f"    - OK: {nome}")
         else:
             nao_encontrados.append(nome)
 
     if nao_encontrados:
-        print(f"\n > {len(nao_encontrados)} arquivo(s) não encontrado(s):")
+        print(f"\n    - {len(nao_encontrados)} arquivo(s) não encontrado(s):")
         for nome in nao_encontrados:
             print(f"    - {nome}")
 
-    print('\n > Transferência concluída.')
+    print('    - Transferência concluída.')
 

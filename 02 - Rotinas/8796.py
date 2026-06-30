@@ -34,8 +34,9 @@ def g8796(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8796(dtInicio, dtFinal):
+    print("     - Aguardando 30seg para exportar 8796 Loja 1")
     time.sleep(30)
-    print("\n > Exportando rotina 8796 Loja 1")
+    print("     - Exportando rotina 8796 Loja 1")
     caminho = pasta_exportacao(para_winthor=True)
 
     dtFormatada = datetime.strptime(dtInicio, '%d/%m/%Y').strftime('%Y.%m')
@@ -59,4 +60,4 @@ def e8796(dtInicio, dtFinal):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
 
-    print("\n > Finalizado rotina 8796 Loja 1")
+    print("     - Finalizado rotina 8796 Loja 1")

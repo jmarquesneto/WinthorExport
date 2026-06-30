@@ -11,7 +11,7 @@ from acoes_winthor import pasta_exportacao
 #------------------------------------------------------------------
 
 def g8680(dtInicio, dtFinal):
-    print("\n > Iniciando rotina 8680")
+    print("\n > Iniciando rotina 8680 Loja 1 & 4")
     time.sleep(5)
     pyautogui.write('8680')
     pyautogui.press('enter')
@@ -36,8 +36,9 @@ def g8680(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8680(dtInicio, dtFinal):
+    print("     - Aguardando 3min para exportar 8680 Loja 1 & 4")
     time.sleep(180)
-    print("\n > Exportando rotina 8680")
+    print("     - Exportando rotina 8680 Loja 1 & 4")
     caminho = pasta_exportacao(para_winthor=True)
     
     pyautogui.keyDown('alt')
@@ -59,5 +60,5 @@ def e8680(dtInicio, dtFinal):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
     time.sleep(20)
-    print("\n > Finalizado rotina 8680")
+    print("     - Finalizado rotina 8680 Loja 1 & 4")
 

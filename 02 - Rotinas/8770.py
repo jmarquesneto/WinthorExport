@@ -33,8 +33,9 @@ def g8770(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8770(dtInicio, dtFinal):
+    print("     - Aguardando 30seg para exportar 8770 Loja 1")
     time.sleep(30)
-    print("\n > Exportando rotina 8770 Loja 1")
+    print("     - Exportando rotina 8770 Loja 1")
     caminho = pasta_exportacao(para_winthor=True)
 
     dtFormatada = datetime.strptime(dtInicio, '%d/%m/%Y').strftime('%Y.%m')
@@ -58,6 +59,6 @@ def e8770(dtInicio, dtFinal):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
 
-    print("\n > Finalizado rotina 8770 Loja 1")
+    print("     - Finalizado rotina 8770 Loja 1")
 
 

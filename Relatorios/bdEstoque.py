@@ -17,7 +17,7 @@ def atualizar_bd_estoque(dtInicio):
     caminho = os.path.join(CAMINHO_BD_VDA, ano, mes, NOME_ARQUIVO)
 
     if not os.path.exists(caminho):
-        print(f" > Arquivo não encontrado: {NOME_ARQUIVO}")
+        print(f"\n > Arquivo não encontrado: {NOME_ARQUIVO}")
         return False
 
     print(f"\n > Abrindo: {NOME_ARQUIVO}")

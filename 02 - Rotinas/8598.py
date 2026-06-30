@@ -42,7 +42,7 @@ def particionar_datas(dtInicio_str, dtFinal_str):
 #------------------------------------------------------------------
 
 def g8598(dtInicio, dtFinal):
-    print("\n > Iniciando 8598")
+    print("\n > Iniciando 8598 Loja 4")
     time.sleep(5)
 
     pyautogui.write('8598')
@@ -65,8 +65,9 @@ def g8598(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8598(dtInicio, dtFinal, parte=None):
+    print("     - Aguardando 10min para exportar 8598 Loja 4")
     time.sleep(600)
-    print("\n > Exportando rotina 8598")
+    print("     - Exportando rotina 8598 Loja 4")
     caminho = pasta_exportacao(para_winthor=True)
 
     dtFormatada = datetime.strptime(dtInicio, '%d/%m/%Y').strftime('%Y.%m')
@@ -91,4 +92,4 @@ def e8598(dtInicio, dtFinal, parte=None):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
 
-    print("\n > Finalizado rotina 8598")
+    print("     - Finalizado rotina 8598 Loja 4")

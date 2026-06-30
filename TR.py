@@ -68,12 +68,12 @@ if __name__ == "__main__":
     #CREDENCIAIS
     usuario = input("\n > Digite seu usuário do Winthor: ").upper()
     while True:
-        senha = getpass(" > Digite sua senha do Winthor: ")
-        senha_confirm = getpass(" > Confirme sua senha: ")
+        senha = getpass("    - Digite sua senha do Winthor: ")
+        senha_confirm = getpass("    - Confirme sua senha: ")
         if senha == senha_confirm:
-            print("Senha confirmada.")
+            print("      - Senha confirmada.")
             break
-        print("As senhas não coincidem. Tente novamente.")
+        print("      - As senhas não coincidem. Tente novamente.")
 
     #AGENDAR RELATORIO
     agendarRelatorio()
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     stop = datetime.now()
     print(f"\n > Término da execução: {stop.strftime('%d/%m/%Y %H:%M:%S')}")
     tempo_total = stop - start
-    print(f" > Tempo total de execução: {tempo_total}")
+    print(f"    - Tempo total de execução: {tempo_total}")
 
     compilar8598(dtInicio)
 

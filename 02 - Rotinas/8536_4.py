@@ -34,8 +34,9 @@ def g8536_4(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8536_4(dtInicio, dtFinal):
+    print("     - Aguardando 1hr para exportar 8536 Loja 4")
     time.sleep(3600)
-    print("\n > Exportando rotina 8536 Loja 4")
+    print("\n     - Exportando rotina 8536 Loja 4")
     caminho = pasta_exportacao(para_winthor=True)
 
     dtFormatada = datetime.strptime(dtInicio, '%d/%m/%Y').strftime('%Y.%m')
@@ -59,4 +60,4 @@ def e8536_4(dtInicio, dtFinal):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
 
-    print("\n > Finalizado rotina 8536 Loja 4")
+    print("\n     - Finalizado rotina 8536 Loja 4")

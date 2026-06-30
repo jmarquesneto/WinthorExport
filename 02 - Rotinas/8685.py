@@ -40,8 +40,9 @@ def g8685(dtInicio, dtFinal, dtEstInicio):
 #------------------------------------------------------------------
 
 def e8685(dtInicio, dtFinal, dtEstInicio):
+    print("     - Aguardando 8min para exportar 8685 Loja 1 & 4")
     time.sleep(480)
-    print("\n > Exportando rotina 8685 Loja 1 & 4")
+    print("     - Exportando rotina 8685 Loja 1 & 4")
     caminho = pasta_exportacao(para_winthor=True)
 
     from datetime import datetime
@@ -68,5 +69,4 @@ def e8685(dtInicio, dtFinal, dtEstInicio):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
     time.sleep(20)
-
-    print("\n > Finalizado rotina 8685 Loja 1 & 4")
+    print("     - Finalizado rotina 8685 Loja 1 & 4")

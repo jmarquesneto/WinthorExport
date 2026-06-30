@@ -33,14 +33,14 @@ def g8551_1(dtInicio, dtFinal):
     time.sleep(1)
     pyautogui.press('enter')
 
-
 #------------------------------------------------------------------
 #EXPORTAR
 #------------------------------------------------------------------
 
 def e8551_1(dtInicio, dtFinal):
-    time.sleep(250)
-    print("\n > Exportando rotina 8551 Loja 1")
+    print("     - Aguardando 5min para exportar 8551 Loja 1")
+    time.sleep(300)
+    print("     - Exportando rotina 8551 Loja 1")
     caminho = pasta_exportacao(para_winthor=True)
 
     dtFormatada = datetime.strptime(dtInicio, '%d/%m/%Y').strftime('%Y.%m')
@@ -64,4 +64,4 @@ def e8551_1(dtInicio, dtFinal):
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
 
-    print("\n > Finalizado rotina 8551 Loja 1")
+    print("     - Finalizado rotina 8551 Loja 1")
