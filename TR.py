@@ -39,24 +39,69 @@ def carregar_rotina(nome):
     return importlib.import_module(nome)
 
 #------------------------------------------------------------------
+#LOG
+#------------------------------------------------------------------
+class _Tee:
+    """Espelha stdout para o terminal e para um arquivo de log simultaneamente."""
+    def __init__(self, *streams):
+        self._streams = streams
+    def write(self, data):
+        for s in self._streams:
+            s.write(data)
+    def flush(self):
+        for s in self._streams:
+            s.flush()
+
+def _iniciar_log():
+    log_dir = Path(__file__).parent / 'Logs'
+    log_dir.mkdir(exist_ok=True)
+    log_path = log_dir / f"log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    log_file = open(log_path, 'w', encoding='utf-8')
+    sys.stdout = _Tee(sys.__stdout__, log_file)
+    print(f" > Log iniciado: {log_path}")
+    return log_file
+
+def _encerrar_log(log_file):
+    sys.stdout = sys.__stdout__
+    log_file.close()
+
+#------------------------------------------------------------------
 #INPUT DAS INFORMAÇÕES
 #------------------------------------------------------------------
+def _ler_data(prompt):
+    while True:
+        valor = input(prompt).strip()
+        try:
+            datetime.strptime(valor, '%d/%m/%Y')
+            return valor
+        except ValueError:
+            print("   [!] Data inválida. Use o formato dd/mm/aaaa (ex: 01/06/2026).")
+
+def _ler_hora(prompt):
+    while True:
+        valor = input(prompt).strip()
+        try:
+            datetime.strptime(valor, '%H:%M')
+            return valor
+        except ValueError:
+            print("   [!] Hora inválida. Use o formato hh:mm (ex: 08:30).")
+
 def gerarRelatorio():
-    dtInicio = input("Digite a data de início (dd/mm/aaaa): ")
-    dtFinal = input("Digite a data final (dd/mm/aaaa): ")
-    dtEstInicio = input("Digite a data de início do estoque (dd/mm/aaaa): ")
+    dtInicio = _ler_data("Digite a data de início (dd/mm/aaaa): ")
+    dtFinal = _ler_data("Digite a data final (dd/mm/aaaa): ")
+    dtEstInicio = _ler_data("Digite a data de início do estoque (dd/mm/aaaa): ")
     return dtInicio, dtFinal, dtEstInicio
 
 def agendarRelatorio():
-    dtGerar = input("\nDigite a data de geração (dd/mm/aaaa): ")
-    hrGerar = input("Digite a hora de geração (hh:mm): ")
+    dtGerar = _ler_data("\nDigite a data de geração (dd/mm/aaaa): ")
+    hrGerar = _ler_hora("Digite a hora de geração (hh:mm): ")
     agendado = datetime.strptime(f'{dtGerar} {hrGerar}', '%d/%m/%Y %H:%M')
     agora = datetime.now()
     if agendado <= agora:
-        print("\nData/hora já passou, iniciando imediatamente...")
+        print("    - Data/hora já passou, iniciando imediatamente...")
         return
     espera = (agendado - agora).total_seconds()
-    print(f"\nAguardando até {agendado.strftime('%d/%m/%Y %H:%M')} para iniciar... ({int(espera // 3600)}h {int((espera % 3600) // 60)}m)")
+    print(f"    - Aguardando até {agendado.strftime('%d/%m/%Y %H:%M')} para iniciar... ({int(espera // 3600)}h {int((espera % 3600) // 60)}m)")
     time.sleep(espera)
 
 
@@ -65,15 +110,17 @@ if __name__ == "__main__":
     #INPUT DOS DADOS
     dtInicio, dtFinal, dtEstInicio = gerarRelatorio()
 
+    log_file = _iniciar_log()
+
     #CREDENCIAIS
     usuario = input("\n > Digite seu usuário do Winthor: ").upper()
     while True:
         senha = getpass("    - Digite sua senha do Winthor: ")
         senha_confirm = getpass("    - Confirme sua senha: ")
         if senha == senha_confirm:
-            print("      - Senha confirmada.")
+            print("\n      - Senha confirmada.")
             break
-        print("      - As senhas não coincidem. Tente novamente.")
+        print("\n      [!] As senhas não coincidem. Tente novamente.")
 
     #AGENDAR RELATORIO
     agendarRelatorio()
@@ -128,11 +175,11 @@ if __name__ == "__main__":
     carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
 
 
-    #FINAL CONTABILIZAR TEMPO
-    stop = datetime.now()
-    print(f"\n > Término da execução: {stop.strftime('%d/%m/%Y %H:%M:%S')}")
-    tempo_total = stop - start
-    print(f"    - Tempo total de execução: {tempo_total}")
+    #FINAL CONTABILIZAR TEMPO (GERAR E EXPORTAR)
+    stop1 = datetime.now()
+    print(f"\n > Término de gerar e exportar: {stop1.strftime('%d/%m/%Y %H:%M:%S')}")
+    tempo_total = stop1 - start
+    print(f"    - Tempo de execução: {tempo_total}")
 
     compilar8598(dtInicio)
 
@@ -143,3 +190,11 @@ if __name__ == "__main__":
     atualizar_bd_estoque(dtInicio)
     time.sleep(2)
     atualizar_bd_venda(dtInicio)
+
+    #FINAL CONTABILIZAR TEMPO TOTAL
+    stop2 = datetime.now()
+    print(f"\n > Término: {stop2.strftime('%d/%m/%Y %H:%M:%S')}")
+    tempo_total = stop2 - start
+    print(f"    - Tempo total de execução: {tempo_total}")
+
+    _encerrar_log(log_file)

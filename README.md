@@ -4,7 +4,7 @@ Automação de geração e exportação de relatórios do sistema WinThor (TOTVS
 
 ## O que faz
 
-O script acessa o WinThor automaticamente, executa as rotinas configuradas, exporta os relatórios em CSV e os organiza em pastas por data. Ao final, transfere os arquivos para as pastas de base de dados da equipe.
+O script acessa o WinThor automaticamente, executa as rotinas configuradas, exporta os relatórios em CSV e os organiza em pastas por data. Ao final, transfere os arquivos para as pastas de base de dados da equipe e atualiza as planilhas de VDA e estoque.
 
 **Rotinas automatizadas:** 8524, 8536, 8551, 8588, 8598, 8680, 8685, 8688, 8770, 8796
 
@@ -33,6 +33,7 @@ Abra o `config.py` e informe:
 - `CAMINHO_EXPORT` — pasta local onde os CSVs serão salvos (drive H:)
 - `CAMINHO_WINTHOR` — mesma pasta acessada pelo WinThor (drive W:)
 - `CAMINHO_BD` — pasta de destino da base de dados
+- `CAMINHO_BD_VDA` — pasta de destino das planilhas de VDA
 
 > **O arquivo `config.py` nunca deve ser enviado ao repositório.** Ele contém dados do ambiente da sua empresa.
 
@@ -44,10 +45,13 @@ Execute o script principal:
 python TR.py
 ```
 
-O sistema pedirá:
-1. Datas do período (início, fim e início do estoque)
-2. Usuário e senha do WinThor (digitados de forma segura)
-3. Data e hora para agendamento (o script aguarda e inicia automaticamente)
+O sistema pedirá as informações na seguinte ordem:
+
+1. **Datas do período** — início, fim e início do estoque (formato `dd/mm/aaaa`, com validação)
+2. **Usuário e senha do WinThor** — senha digitada de forma segura e confirmada
+3. **Agendamento** — data e hora para iniciar (formato `dd/mm/aaaa` e `hh:mm`, com validação); se a data já passou, inicia imediatamente
+
+Após a execução, um arquivo de log é gerado automaticamente na pasta `Logs/` com o registro completo de tudo que foi impresso no terminal.
 
 ## Estrutura do projeto
 
@@ -60,4 +64,9 @@ Addons/
   TransArquivos.py     — compilar partes do 8598 e transferir arquivos
   acoes_winthor.py     — funções de automação (clique, imagem, login)
   config.example.py    — modelo de configuração (copie para config.py)
+Relatorios/
+  vdaTLMK.py           — atualiza planilha de VDA do TLMK
+  bdEstoque.py         — atualiza base de dados de estoque
+  bdVDA.py             — atualiza base de dados de vendas
+Logs/                  — logs de execução gerados automaticamente (não versionados)
 ```
