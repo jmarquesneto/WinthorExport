@@ -34,6 +34,7 @@ from TransArquivos import (
 from Relatorios.vdaTLMK import atualizar_vda_tlmk
 from Relatorios.bdEstoque import atualizar_bd_estoque
 from Relatorios.bdVDA import atualizar_bd_venda
+from Relatorios.ferramentas import atualizar_ferramentas
 
 def carregar_rotina(nome):
     return importlib.import_module(nome)
@@ -84,7 +85,7 @@ def _ler_hora(prompt):
             datetime.strptime(valor, '%H:%M')
             return valor
         except ValueError:
-            print("   [!] Hora inválida. Use o formato hh:mm (ex: 08:30).")
+            print("   [!] Hora inválida. Use o formato hh:mm (ex: 03:00).")
 
 def gerarRelatorio():
     dtInicio = _ler_data("Digite a data de início (dd/mm/aaaa): ")
@@ -190,6 +191,8 @@ if __name__ == "__main__":
     atualizar_bd_estoque(dtInicio)
     time.sleep(2)
     atualizar_bd_venda(dtInicio)
+    time.sleep(2)
+    atualizar_ferramentas(dtInicio)
 
     #FINAL CONTABILIZAR TEMPO TOTAL
     stop2 = datetime.now()
