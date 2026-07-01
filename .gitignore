@@ -12,6 +12,7 @@ env/
 
 # Logs
 *.log
+Logs/
 
 # Arquivos temporários e do sistema
 *.tmp
@@ -20,6 +21,9 @@ Thumbs.db
 
 # Dados exportados (CSVs gerados pelo WinThor)
 *.csv
+
+# Arquivos de teste
+TestesTR.py
 
 # Outros Arquivos
 Link_Github.txt
