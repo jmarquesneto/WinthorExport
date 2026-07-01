@@ -4,7 +4,7 @@ import time
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Addons'))
-from acoes_winthor import pasta_exportacao
+from acoes_winthor import pasta_exportacao, aguardar_imagem
 
 #------------------------------------------------------------------
 #GERAR
@@ -30,9 +30,10 @@ def g8588(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8588(dtInicio):
-    print("     - Aguardando 30seg para exportar 8588 Loja 1 & 4")
-    time.sleep(30)
-    print("\n     - Exportando rotina 8588 Loja 1 & 4")
+    print("     - Aguardando geração do relatório 8588 Loja 1 & 4...")
+    if not aguardar_imagem('Concluido.PNG', timeout=30):
+        print("       - Aviso: tela de conclusão não detectada, prosseguindo mesmo assim.")
+    print("     - Exportando rotina 8588 Loja 1 & 4")
     caminho = pasta_exportacao(para_winthor=True)
     
     pyautogui.keyDown('alt')
@@ -57,4 +58,4 @@ def e8588(dtInicio):
     pyautogui.hotkey('alt', 'f')
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
-    print("\n     - Finalizado rotina 8588 Loja 1 & 4")
+    print("     - Finalizado rotina 8588 Loja 1 & 4")

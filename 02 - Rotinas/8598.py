@@ -5,7 +5,7 @@ import sys
 import os
 from datetime import datetime, timedelta
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Addons'))
-from acoes_winthor import pasta_exportacao
+from acoes_winthor import pasta_exportacao, aguardar_imagem
 
 #------------------------------------------------------------------
 #PARTICIONAR DATAS (até 3 partes de 10 dias)
@@ -65,8 +65,9 @@ def g8598(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8598(dtInicio, dtFinal, parte=None):
-    print("     - Aguardando 10min para exportar 8598 Loja 4")
-    time.sleep(600)
+    print("     - Aguardando geração do relatório 8598 Loja 4...")
+    if not aguardar_imagem('Concluido.PNG', timeout=600):
+        print("       - Aviso: tela de conclusão não detectada, prosseguindo mesmo assim.")
     print("     - Exportando rotina 8598 Loja 4")
     caminho = pasta_exportacao(para_winthor=True)
 

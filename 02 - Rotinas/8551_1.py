@@ -5,7 +5,7 @@ import sys
 import os
 from datetime import datetime
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'Addons'))
-from acoes_winthor import pasta_exportacao
+from acoes_winthor import pasta_exportacao, aguardar_imagem
 
 #------------------------------------------------------------------
 #GERAR
@@ -38,8 +38,9 @@ def g8551_1(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8551_1(dtInicio, dtFinal):
-    print("     - Aguardando 5min para exportar 8551 Loja 1")
-    time.sleep(300)
+    print("     - Aguardando geração do relatório 8551 Loja 1...")
+    if not aguardar_imagem('Concluido.PNG', timeout=300):
+        print("       - Aviso: tela de conclusão não detectada, prosseguindo mesmo assim.")
     print("     - Exportando rotina 8551 Loja 1")
     caminho = pasta_exportacao(para_winthor=True)
 
