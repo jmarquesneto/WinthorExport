@@ -110,100 +110,158 @@ def agendarRelatorio():
     print(f"    - Aguardando até {agendado.strftime('%d/%m/%Y %H:%M')} para iniciar... ({int(espera // 3600)}h {int((espera % 3600) // 60)}m)")
     time.sleep(espera)
 
+#------------------------------------------------------------------
+#SELEÇÃO DE MÓDULOS
+#------------------------------------------------------------------
+MODULOS_DISPONIVEIS = [
+    ('rotinas', 'Gerar e Exportar Rotinas (Winthor -> CSVs) + Compilar 8598'),
+    ('transferBdRotinas', 'Transferir Bases de Rotinas'),
+    ('atualizar_vda_tlmk', 'Atualizar Venda Telemarketing'),
+    ('atualizar_bd_estoque', 'Atualizar BD Estoque'),
+    ('atualizar_bd_venda', 'Atualizar BD Venda'),
+    ('atualizar_ferramentas', 'Atualizar Ferramentas Comercial/Operações'),
+    ('atualizar_ajuste_quebra', 'Atualizar Ajuste Quebra Desconhecida'),
+    ('atualizar_acordos_quebra', 'Atualizar Acordos Quebra'),
+    ('atualizar_ferramenta_quebra', 'Atualizar Ferramenta de Quebra'),
+]
+
+def escolher_modulos():
+    print("\n > O que deseja executar?")
+    print("    1 - Gerar tudo (fluxo completo)")
+    print("    2 - Selecionar módulos específicos")
+    while True:
+        escolha = input("    Escolha uma opção (1/2): ").strip()
+        if escolha in ('1', '2'):
+            break
+        print("   [!] Opção inválida. Digite 1 ou 2.")
+
+    if escolha == '1':
+        return None
+
+    print("\n > Selecione os módulos desejados (números separados por vírgula, ex: 1,3,5):")
+    for i, (_, descricao) in enumerate(MODULOS_DISPONIVEIS, 1):
+        print(f"    {i} - {descricao}")
+
+    while True:
+        entrada = input("    Números: ").strip()
+        numeros = [n.strip() for n in entrada.split(',') if n.strip()]
+        try:
+            selecionados = {MODULOS_DISPONIVEIS[int(n) - 1][0] for n in numeros}
+            if selecionados:
+                return selecionados
+        except (ValueError, IndexError):
+            pass
+        print("   [!] Seleção inválida. Digite números válidos separados por vírgula (ex: 1,3,5).")
+
 
 if __name__ == "__main__":
+
+    #ESCOLHA DO MODO DE EXECUÇÃO
+    modulos_escolhidos = escolher_modulos()
+    modulos = {nome for nome, _ in MODULOS_DISPONIVEIS} if modulos_escolhidos is None else modulos_escolhidos
+    rodar_rotinas = 'rotinas' in modulos
 
     #INPUT DOS DADOS
     dtInicio, dtFinal, dtEstInicio = gerarRelatorio()
 
     log_file = _iniciar_log()
 
-    #CREDENCIAIS
-    usuario = input("\n > Digite seu usuário do Winthor: ").upper()
-    while True:
-        senha = getpass("    - Digite sua senha do Winthor: ")
-        senha_confirm = getpass("    - Confirme sua senha: ")
-        if senha == senha_confirm:
-            print("\n      - Senha confirmada.")
-            break
-        print("\n      [!] As senhas não coincidem. Tente novamente.")
+    if rodar_rotinas:
+        #CREDENCIAIS
+        usuario = input("\n > Digite seu usuário do Winthor: ").upper()
+        while True:
+            senha = getpass("    - Digite sua senha do Winthor: ")
+            senha_confirm = getpass("    - Confirme sua senha: ")
+            if senha == senha_confirm:
+                print("\n      - Senha confirmada.")
+                break
+            print("\n      [!] As senhas não coincidem. Tente novamente.")
 
-    #AGENDAR RELATORIO
-    agendarRelatorio()
+        #AGENDAR RELATORIO
+        agendarRelatorio()
 
     #INICIO CONTABILIZAR TEMPO
     start = datetime.now()
     print(f"\n > Início da execução: {start.strftime('%d/%m/%Y %H:%M:%S')}")
 
-    #ABRIR WINTHOR
-    time.sleep(2)
-    abrir_appcontroller(usuario, senha)
+    if rodar_rotinas:
+        #ABRIR WINTHOR
+        time.sleep(2)
+        abrir_appcontroller(usuario, senha)
 
-    #GERAR E EXPORTAR ROTINAS
-    carregar_rotina('8588').g8588(dtInicio, dtFinal)
-    carregar_rotina('8588').e8588(dtInicio)
+        #GERAR E EXPORTAR ROTINAS
+        carregar_rotina('8588').g8588(dtInicio, dtFinal)
+        carregar_rotina('8588').e8588(dtInicio)
 
-    carregar_rotina('8524').g8524(dtInicio, dtFinal)
-    carregar_rotina('8524').e8524(dtInicio, dtFinal)
+        carregar_rotina('8524').g8524(dtInicio, dtFinal)
+        carregar_rotina('8524').e8524(dtInicio, dtFinal)
 
-    carregar_rotina('8680').g8680(dtInicio, dtFinal)
-    carregar_rotina('8680').e8680(dtInicio, dtFinal)
+        carregar_rotina('8680').g8680(dtInicio, dtFinal)
+        carregar_rotina('8680').e8680(dtInicio, dtFinal)
 
-    carregar_rotina('8688').g8688(dtInicio, dtFinal)
-    carregar_rotina('8688').e8688(dtInicio, dtFinal)
+        carregar_rotina('8688').g8688(dtInicio, dtFinal)
+        carregar_rotina('8688').e8688(dtInicio, dtFinal)
 
-    carregar_rotina('8685').g8685(dtInicio, dtFinal, dtEstInicio)
-    carregar_rotina('8685').e8685(dtInicio, dtFinal, dtEstInicio)
+        carregar_rotina('8685').g8685(dtInicio, dtFinal, dtEstInicio)
+        carregar_rotina('8685').e8685(dtInicio, dtFinal, dtEstInicio)
 
-    carregar_rotina('8770').g8770(dtInicio, dtFinal)
-    carregar_rotina('8770').e8770(dtInicio, dtFinal)
+        carregar_rotina('8770').g8770(dtInicio, dtFinal)
+        carregar_rotina('8770').e8770(dtInicio, dtFinal)
 
-    carregar_rotina('8796').g8796(dtInicio, dtFinal)
-    carregar_rotina('8796').e8796(dtInicio, dtFinal)
+        carregar_rotina('8796').g8796(dtInicio, dtFinal)
+        carregar_rotina('8796').e8796(dtInicio, dtFinal)
 
-    carregar_rotina('8551_1').g8551_1(dtInicio, dtFinal)
-    carregar_rotina('8551_1').e8551_1(dtInicio, dtFinal)
+        carregar_rotina('8551_1').g8551_1(dtInicio, dtFinal)
+        carregar_rotina('8551_1').e8551_1(dtInicio, dtFinal)
 
-    carregar_rotina('8551_4').g8551_4(dtInicio, dtFinal)
-    carregar_rotina('8551_4').e8551_4(dtInicio, dtFinal)
+        carregar_rotina('8551_4').g8551_4(dtInicio, dtFinal)
+        carregar_rotina('8551_4').e8551_4(dtInicio, dtFinal)
 
-    rotina_8598 = carregar_rotina('8598')
-    partes_8598 = rotina_8598.particionar_datas(dtInicio, dtFinal)
-    for i, (ini, fim) in enumerate(partes_8598, 1):
-        parte = None if i == 1 else i
-        rotina_8598.g8598(ini, fim)
-        rotina_8598.e8598(ini, fim, parte=parte)
-    
-    carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
-    carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
+        rotina_8598 = carregar_rotina('8598')
+        partes_8598 = rotina_8598.particionar_datas(dtInicio, dtFinal)
+        for i, (ini, fim) in enumerate(partes_8598, 1):
+            parte = None if i == 1 else i
+            rotina_8598.g8598(ini, fim)
+            rotina_8598.e8598(ini, fim, parte=parte)
 
-    carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
-    carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
+        carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
+        carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
+
+        carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
+        carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
 
 
-    #FINAL CONTABILIZAR TEMPO (GERAR E EXPORTAR)
-    stop1 = datetime.now()
-    print(f"\n > Término de gerar e exportar: {stop1.strftime('%d/%m/%Y %H:%M:%S')}")
-    tempo_total = stop1 - start
-    print(f"    - Tempo de execução: {tempo_total}")
+        #FINAL CONTABILIZAR TEMPO (GERAR E EXPORTAR)
+        stop1 = datetime.now()
+        print(f"\n > Término de gerar e exportar: {stop1.strftime('%d/%m/%Y %H:%M:%S')}")
+        tempo_total = stop1 - start
+        print(f"    - Tempo de execução: {tempo_total}")
 
-    compilar8598(dtInicio)
+        compilar8598(dtInicio)
 
-    transferBdRotinas(dtInicio, dtFinal)
-    time.sleep(2)
-    atualizar_vda_tlmk(dtInicio)
-    time.sleep(2)
-    atualizar_bd_estoque(dtInicio)
-    time.sleep(2)
-    atualizar_bd_venda(dtInicio)
-    time.sleep(2)
-    atualizar_ferramentas(dtInicio)
-    time.sleep(2)
-    atualizar_ajuste_quebra(dtInicio)
-    time.sleep(2)
-    atualizar_acordos_quebra(dtInicio)
-    time.sleep(2)
-    atualizar_ferramenta_quebra(dtInicio)
+    if 'transferBdRotinas' in modulos:
+        transferBdRotinas(dtInicio, dtFinal)
+        time.sleep(2)
+    if 'atualizar_vda_tlmk' in modulos:
+        atualizar_vda_tlmk(dtInicio)
+        time.sleep(2)
+    if 'atualizar_bd_estoque' in modulos:
+        atualizar_bd_estoque(dtInicio)
+        time.sleep(2)
+    if 'atualizar_bd_venda' in modulos:
+        atualizar_bd_venda(dtInicio)
+        time.sleep(2)
+    if 'atualizar_ferramentas' in modulos:
+        atualizar_ferramentas(dtInicio)
+        time.sleep(2)
+    if 'atualizar_ajuste_quebra' in modulos:
+        atualizar_ajuste_quebra(dtInicio)
+        time.sleep(2)
+    if 'atualizar_acordos_quebra' in modulos:
+        atualizar_acordos_quebra(dtInicio)
+        time.sleep(2)
+    if 'atualizar_ferramenta_quebra' in modulos:
+        atualizar_ferramenta_quebra(dtInicio)
 
     #FINAL CONTABILIZAR TEMPO TOTAL
     stop2 = datetime.now()
