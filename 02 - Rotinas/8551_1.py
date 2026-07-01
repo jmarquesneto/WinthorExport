@@ -64,5 +64,4 @@ def e8551_1(dtInicio, dtFinal):
     pyautogui.hotkey('alt', 'f')
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
-
     print("     - Finalizado rotina 8551 Loja 1")

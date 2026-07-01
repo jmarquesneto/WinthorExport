@@ -115,6 +115,7 @@ def agendarRelatorio():
 #------------------------------------------------------------------
 MODULOS_DISPONIVEIS = [
     ('rotinas', 'Gerar e Exportar Rotinas (Winthor -> CSVs) + Compilar 8598'),
+    ('fechamento', 'Fechamento (8536 e 8551 - Mês Anterior)'),
     ('transferBdRotinas', 'Transferir Bases de Rotinas'),
     ('atualizar_vda_tlmk', 'Atualizar Venda Telemarketing'),
     ('atualizar_bd_estoque', 'Atualizar BD Estoque'),
@@ -127,16 +128,24 @@ MODULOS_DISPONIVEIS = [
 
 def escolher_modulos():
     print("\n > O que deseja executar?")
-    print("    1 - Gerar tudo (fluxo completo)")
-    print("    2 - Selecionar módulos específicos")
+    print("    1 - Gerar competência atual")
+    print("    2 - Competência atual + fechamento")
+    print("    3 - Selecionar módulos específicos")
+    print("    4 - Somente fechamento")
     while True:
-        escolha = input("    Escolha uma opção (1/2): ").strip()
-        if escolha in ('1', '2'):
+        escolha = input("    Escolha uma opção (1/2/3/4): ").strip()
+        if escolha in ('1', '2', '3', '4'):
             break
-        print("   [!] Opção inválida. Digite 1 ou 2.")
+        print("   [!] Opção inválida. Digite 1, 2, 3 ou 4.")
+
+    todos_modulos = {nome for nome, _ in MODULOS_DISPONIVEIS}
 
     if escolha == '1':
-        return None
+        return todos_modulos - {'fechamento'}
+    if escolha == '2':
+        return todos_modulos
+    if escolha == '4':
+        return {'fechamento'}
 
     print("\n > Selecione os módulos desejados (números separados por vírgula, ex: 1,3,5):")
     for i, (_, descricao) in enumerate(MODULOS_DISPONIVEIS, 1):
@@ -157,16 +166,16 @@ def escolher_modulos():
 if __name__ == "__main__":
 
     #ESCOLHA DO MODO DE EXECUÇÃO
-    modulos_escolhidos = escolher_modulos()
-    modulos = {nome for nome, _ in MODULOS_DISPONIVEIS} if modulos_escolhidos is None else modulos_escolhidos
+    modulos = escolher_modulos()
     rodar_rotinas = 'rotinas' in modulos
+    precisa_winthor = rodar_rotinas or 'fechamento' in modulos
 
     #INPUT DOS DADOS
     dtInicio, dtFinal, dtEstInicio = gerarRelatorio()
 
     log_file = _iniciar_log()
 
-    if rodar_rotinas:
+    if precisa_winthor:
         #CREDENCIAIS
         usuario = input("\n > Digite seu usuário do Winthor: ").upper()
         while True:
@@ -184,60 +193,65 @@ if __name__ == "__main__":
     start = datetime.now()
     print(f"\n > Início da execução: {start.strftime('%d/%m/%Y %H:%M:%S')}")
 
-    if rodar_rotinas:
+    if precisa_winthor:
         #ABRIR WINTHOR
         time.sleep(2)
         abrir_appcontroller(usuario, senha)
 
-        #GERAR E EXPORTAR ROTINAS
-        carregar_rotina('8588').g8588(dtInicio, dtFinal)
-        carregar_rotina('8588').e8588(dtInicio)
+        if rodar_rotinas:
+            #GERAR E EXPORTAR ROTINAS
+            carregar_rotina('8588').g8588(dtInicio, dtFinal)
+            carregar_rotina('8588').e8588(dtInicio)
 
-        carregar_rotina('8524').g8524(dtInicio, dtFinal)
-        carregar_rotina('8524').e8524(dtInicio, dtFinal)
+            carregar_rotina('8524').g8524(dtInicio, dtFinal)
+            carregar_rotina('8524').e8524(dtInicio, dtFinal)
 
-        carregar_rotina('8680').g8680(dtInicio, dtFinal)
-        carregar_rotina('8680').e8680(dtInicio, dtFinal)
+            carregar_rotina('8680').g8680(dtInicio, dtFinal)
+            carregar_rotina('8680').e8680(dtInicio, dtFinal)
 
-        carregar_rotina('8688').g8688(dtInicio, dtFinal)
-        carregar_rotina('8688').e8688(dtInicio, dtFinal)
+            carregar_rotina('8688').g8688(dtInicio, dtFinal)
+            carregar_rotina('8688').e8688(dtInicio, dtFinal)
 
-        carregar_rotina('8685').g8685(dtInicio, dtFinal, dtEstInicio)
-        carregar_rotina('8685').e8685(dtInicio, dtFinal, dtEstInicio)
+            carregar_rotina('8685').g8685(dtInicio, dtFinal, dtEstInicio)
+            carregar_rotina('8685').e8685(dtInicio, dtFinal, dtEstInicio)
 
-        carregar_rotina('8770').g8770(dtInicio, dtFinal)
-        carregar_rotina('8770').e8770(dtInicio, dtFinal)
+            carregar_rotina('8770').g8770(dtInicio, dtFinal)
+            carregar_rotina('8770').e8770(dtInicio, dtFinal)
 
-        carregar_rotina('8796').g8796(dtInicio, dtFinal)
-        carregar_rotina('8796').e8796(dtInicio, dtFinal)
+            carregar_rotina('8796').g8796(dtInicio, dtFinal)
+            carregar_rotina('8796').e8796(dtInicio, dtFinal)
 
-        carregar_rotina('8551_1').g8551_1(dtInicio, dtFinal)
-        carregar_rotina('8551_1').e8551_1(dtInicio, dtFinal)
+            carregar_rotina('8551_1').g8551_1(dtInicio, dtFinal)
+            carregar_rotina('8551_1').e8551_1(dtInicio, dtFinal)
 
-        carregar_rotina('8551_4').g8551_4(dtInicio, dtFinal)
-        carregar_rotina('8551_4').e8551_4(dtInicio, dtFinal)
+            carregar_rotina('8551_4').g8551_4(dtInicio, dtFinal)
+            carregar_rotina('8551_4').e8551_4(dtInicio, dtFinal)
 
-        rotina_8598 = carregar_rotina('8598')
-        partes_8598 = rotina_8598.particionar_datas(dtInicio, dtFinal)
-        for i, (ini, fim) in enumerate(partes_8598, 1):
-            parte = None if i == 1 else i
-            rotina_8598.g8598(ini, fim)
-            rotina_8598.e8598(ini, fim, parte=parte)
+            rotina_8598 = carregar_rotina('8598')
+            partes_8598 = rotina_8598.particionar_datas(dtInicio, dtFinal)
+            for i, (ini, fim) in enumerate(partes_8598, 1):
+                parte = None if i == 1 else i
+                rotina_8598.g8598(ini, fim)
+                rotina_8598.e8598(ini, fim, parte=parte)
 
-        carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
-        carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
+            carregar_rotina('8536_1').g8536_1(dtInicio, dtFinal)
+            carregar_rotina('8536_1').e8536_1(dtInicio, dtFinal)
 
-        carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
-        carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
+            carregar_rotina('8536_4').g8536_4(dtInicio, dtFinal)
+            carregar_rotina('8536_4').e8536_4(dtInicio, dtFinal)
 
 
-        #FINAL CONTABILIZAR TEMPO (GERAR E EXPORTAR)
-        stop1 = datetime.now()
-        print(f"\n > Término de gerar e exportar: {stop1.strftime('%d/%m/%Y %H:%M:%S')}")
-        tempo_total = stop1 - start
-        print(f"    - Tempo de execução: {tempo_total}")
+            #FINAL CONTABILIZAR TEMPO (GERAR E EXPORTAR)
+            stop1 = datetime.now()
+            print(f"\n > Término de gerar e exportar: {stop1.strftime('%d/%m/%Y %H:%M:%S')}")
+            tempo_total = stop1 - start
+            print(f"    - Tempo de execução: {tempo_total}")
 
-        compilar8598(dtInicio)
+            compilar8598(dtInicio)
+
+        if 'fechamento' in modulos:
+            carregar_rotina('fechamento').fechamento(dtInicio)
+            time.sleep(2)
 
     if 'transferBdRotinas' in modulos:
         transferBdRotinas(dtInicio, dtFinal)

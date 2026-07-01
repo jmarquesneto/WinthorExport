@@ -34,7 +34,7 @@ def g8536_4(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8536_4(dtInicio, dtFinal):
-    print("     - Aguardando geração do relatório 8536 Loja 4...")
+    print("     - Aguardando geração do relatório 8536 Loja 4")
     if not aguardar_imagem('Concluido.PNG', timeout=3600):
         print("       - Aviso: tela de conclusão não detectada, prosseguindo mesmo assim.")
     print("     - Exportando rotina 8536 Loja 4")
@@ -60,5 +60,4 @@ def e8536_4(dtInicio, dtFinal):
     pyautogui.hotkey('alt', 'f')
     time.sleep(5)
     pyautogui.hotkey('alt', 'f')
-
     print("     - Finalizado rotina 8536 Loja 4")

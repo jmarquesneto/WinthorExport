@@ -38,7 +38,7 @@ def g8551_4(dtInicio, dtFinal):
 #------------------------------------------------------------------
 
 def e8551_4(dtInicio, dtFinal):
-    print("     - Aguardando geração do relatório 8551 Loja 4...")
+    print("     - Aguardando geração do relatório 8551 Loja 4")
     if not aguardar_imagem('Concluido.PNG', timeout=300):
         print("       - Aviso: tela de conclusão não detectada, prosseguindo mesmo assim.")
     print("     - Exportando rotina 8551 Loja 4")
