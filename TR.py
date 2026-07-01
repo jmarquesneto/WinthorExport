@@ -35,6 +35,11 @@ from Relatorios.vdaTLMK import atualizar_vda_tlmk
 from Relatorios.bdEstoque import atualizar_bd_estoque
 from Relatorios.bdVDA import atualizar_bd_venda
 from Relatorios.ferramentas import atualizar_ferramentas
+from Relatorios.quebra import (
+    atualizar_ajuste_quebra,
+    atualizar_acordos_quebra,
+    atualizar_ferramenta_quebra,
+)
 
 def carregar_rotina(nome):
     return importlib.import_module(nome)
@@ -193,6 +198,12 @@ if __name__ == "__main__":
     atualizar_bd_venda(dtInicio)
     time.sleep(2)
     atualizar_ferramentas(dtInicio)
+    time.sleep(2)
+    atualizar_ajuste_quebra(dtInicio)
+    time.sleep(2)
+    atualizar_acordos_quebra(dtInicio)
+    time.sleep(2)
+    atualizar_ferramenta_quebra(dtInicio)
 
     #FINAL CONTABILIZAR TEMPO TOTAL
     stop2 = datetime.now()
